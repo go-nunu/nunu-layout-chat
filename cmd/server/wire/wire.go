@@ -65,7 +65,7 @@ func NewWire(*viper.Viper, *log.Logger) (*app.App, func(), error) {
 		serverSet,
 		sid.NewSid,
 		jwt.NewJwt,
-		ws.NewPitaya,
+		server.NewPitaya,
 		newApp,
 	))
 }

@@ -25,7 +25,7 @@ import (
 
 func NewWire(viperViper *viper.Viper, logger *log.Logger) (*app.App, func(), error) {
 	jwtJWT := jwt.NewJwt(viperViper)
-	pitaya := ws.NewPitaya(logger, viperViper)
+	pitaya := server.NewPitaya(logger, viperViper)
 	handlerHandler := handler.NewHandler(logger, pitaya)
 	db := repository.NewDB(viperViper, logger)
 	repositoryRepository := repository.NewRepository(logger, db)

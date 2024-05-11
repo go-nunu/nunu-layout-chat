@@ -39,7 +39,7 @@ func NewWire(viperViper *viper.Viper, logger *log.Logger) (*app.App, func(), err
 	job := server.NewJob(logger)
 	roomService := service.NewRoomService(serviceService)
 	roomHandler := handler.NewRoomHandler(handlerHandler, roomService)
-	wsServer := server.NewWebSocketServer(logger, roomHandler, viperViper, pitaya)
+	wsServer := server.NewWebSocketServer(logger, viperViper, pitaya, roomHandler)
 	appApp := newApp(httpServer, job, wsServer)
 	return appApp, func() {
 	}, nil

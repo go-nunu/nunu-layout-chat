@@ -26,9 +26,9 @@ type WebSocketServer struct {
 
 func NewWebSocketServer(
 	logger *log.Logger,
-	roomHandler *handler.RoomHandler,
 	conf *viper.Viper,
 	app pitaya.Pitaya,
+	roomHandler *handler.RoomHandler,
 ) *ws.Server {
 	pLogger := log.NewPitayaLog(conf)
 	pitaya.SetLogger(pLogger)
@@ -77,7 +77,7 @@ func NewPitaya(logger *log.Logger, conf *viper.Viper) pitaya.Pitaya {
 			}
 		}
 		if session.UID() == "" {
-			return ctx, nil, errors.New("Unauthorized")
+			return ctx, nil, errors.New("unauthorized")
 		}
 		if in != nil {
 		}
@@ -89,6 +89,7 @@ func NewPitaya(logger *log.Logger, conf *viper.Viper) pitaya.Pitaya {
 	})
 
 	builder.AddAcceptor(acceptor.NewWSAcceptor(fmt.Sprintf("%s:%d", conf.GetString("ws.host"), conf.GetInt("ws.port"))))
+	//builder.AddAcceptor(acceptor.NewTCPAcceptor(""))
 	builder.Groups = groups.NewMemoryGroupService(builder.Config.Groups.Memory)
 	return builder.Build()
 }
